@@ -88,7 +88,6 @@ function Form() {
             onChange={changeHandler}
             placeholder="example@email.com"
             className="form-control"
-            invalid={!!formError.email}
           />
         </div>
         <div className="row mb-3">
