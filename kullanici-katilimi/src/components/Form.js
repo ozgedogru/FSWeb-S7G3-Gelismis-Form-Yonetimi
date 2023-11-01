@@ -60,44 +60,69 @@ function Form() {
   }, [formData]);
 
   return (
-    <div>
+    <div class="container fluid">
       <div>
         <h2>Create account:</h2>
+        <hr />
       </div>
       <form onSubmit={createUser}>
-        <div>
-          <label htmlFor="user-name">Full Name</label>
+        <div className="row mb-3">
+          <label htmlFor="user-name" className="col-sm-1 col-form-label">
+            Name
+          </label>
           <input
             name="name"
             type="text"
             onChange={changeHandler}
             placeholder="Name..."
+            className="form-control"
           />
         </div>
-        <div>
-          <label htmlFor="user-mail">Email</label>
+        <div className="row mb-3">
+          <label htmlFor="user-mail" className="col-sm-1 col-form-label">
+            Email
+          </label>
           <input
             name="email"
             type="email"
             onChange={changeHandler}
             placeholder="example@email.com"
+            className="form-control"
+            invalid={!!formError.email}
           />
         </div>
-        <div>
-          <label htmlFor="user-pass">Password</label>
+        <div className="row mb-3">
+          <label htmlFor="user-pass" className="col-sm-1 col-form-label">
+            Password
+          </label>
           <input
             name="password"
             type="password"
             onChange={changeHandler}
             placeholder="password123"
+            className="form-control"
           />
         </div>
-        <div>
-          <label>I accept the terms of service.</label>
-          <input type="checkbox" onChange={changeHandler} checkbox={""}></input>
+        <div className="row mb-3">
+          <div className="col-auto">
+            <div className="form-check">
+              <label htmlFor="checkbox" className="form-check-label">
+                I accept the terms of service.
+              </label>
+              <input
+                name="checkbox"
+                type="checkbox"
+                onChange={changeHandler}
+                checkbox={""}
+                className="form-check-input"
+              ></input>
+            </div>
+          </div>
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" className="btn btn-primary">
+          Sign Up
+        </button>
       </form>
     </div>
   );
