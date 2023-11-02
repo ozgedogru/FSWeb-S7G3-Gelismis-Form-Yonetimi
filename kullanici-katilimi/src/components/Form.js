@@ -13,12 +13,18 @@ function SignForm() {
 
   const userSchema = Yup.object().shape({
     name: Yup.string().required(),
-    email: Yup.string().email().required(),
+    email: Yup.string()
+      .email()
+      .required()
+      .notOneOf(
+        ["waffle@syrup.com"],
+        "this email address has already been used"
+      ),
     password: Yup.string()
       .min(4, "the password cannot be shorter than 4 characters")
       .max(10, "the password cannot be longer than 10 characters")
       .required(),
-    checkbox: Yup.boolean().required(),
+    checkbox: Yup.boolean().oneOf([true]),
   });
 
   const createUser = (e) => {
@@ -35,6 +41,7 @@ function SignForm() {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
+
     Yup.reach(userSchema, name)
       .validate(type === "checkbox" ? checked : value)
       .then((valid) => {
@@ -55,9 +62,9 @@ function SignForm() {
 
   const [formValid, setFormValid] = useState(true);
 
-  useEffect(() => {
-    console.error("form err > ", formError);
-  });
+  // useEffect(() => {
+  //   console.error("form err > ", formError);
+  // });
 
   useEffect(() => {
     userSchema.isValid(formData).then((valid) => setFormValid(valid));
