@@ -24,13 +24,9 @@ function SignForm() {
   const createUser = (e) => {
     e.preventDefault();
 
-    const formData = {
-      name: e.target[0].value,
-      email: e.target[1].value,
-      password: e.target[2].value,
-      checkbox: e.target[3].value,
-    };
-    console.log("formData > ", formData);
+    if (formValid) {
+      console.log("Form eklendi! ", formData);
+    }
   };
 
   const changeHandler = (e) => {
