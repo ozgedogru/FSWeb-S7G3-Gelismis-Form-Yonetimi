@@ -4,20 +4,27 @@ import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 
 function SignForm() {
+  const fromDataInitial = {
+    name: "",
+    email: "",
+    password: "",
+    checkbox: false,
+  };
+
   const userSchema = Yup.object().shape({
     name: Yup.string().required(),
     email: Yup.string().email().required(),
     password: Yup.string()
-      .min(4, "The password cannot be shorter than 4 characters.")
-      .max(10, "The password cannot be longer than 10 characters.")
+      .min(4, "the password cannot be shorter than 4 characters")
+      .max(10, "the password cannot be longer than 10 characters")
       .required(),
-    checkbox: Yup.boolean(),
+    checkbox: Yup.boolean().required(),
   });
 
   const createUser = (e) => {
     e.preventDefault();
 
-    let formData = {
+    const formData = {
       name: e.target[0].value,
       email: e.target[1].value,
       password: e.target[2].value,
@@ -42,7 +49,7 @@ function SignForm() {
       });
   };
 
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState(fromDataInitial);
   const [formError, setFormError] = useState({
     name: "",
     email: "",
@@ -61,7 +68,7 @@ function SignForm() {
   }, [formData]);
 
   return (
-    <div class="container fluid">
+    <div className="container fluid">
       <div>
         <h2>Create account:</h2>
         <hr />
@@ -74,10 +81,15 @@ function SignForm() {
           <Form.Control
             name="name"
             type="text"
+            value={formData.name}
             onChange={changeHandler}
             placeholder="Name..."
             className="form-control"
+            isInvalid={!!formError.name}
           />
+          <Form.Control.Feedback type="invalid">
+            {formError.name}
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="row mb-3">
           <Form.Label htmlFor="user-mail" className="col-sm-1 col-form-label">
@@ -86,10 +98,15 @@ function SignForm() {
           <Form.Control
             name="email"
             type="email"
+            value={formData.email}
             onChange={changeHandler}
             placeholder="example@email.com"
             className="form-control"
+            isInvalid={!!formError.email}
           />
+          <Form.Control.Feedback type="invalid">
+            {formError.email}
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="row mb-3">
           <Form.Label htmlFor="user-pass" className="col-sm-1 col-form-label">
@@ -98,18 +115,24 @@ function SignForm() {
           <Form.Control
             name="password"
             type="password"
+            value={formData.password}
             onChange={changeHandler}
             placeholder="password123"
             className="form-control"
+            isInvalid={!!formError.password}
           />
+          <Form.Control.Feedback type="invalid">
+            {formError.password}
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="row mb-3">
           <Form.Check
-            name="active"
+            name="checkbox"
             type="checkbox"
-            label="Aktif mi?"
             onChange={changeHandler}
+            checked={formData.checkbox}
           />
+          <Form.Label>I accept the terms of service.</Form.Label>
         </Form.Group>
 
         <button type="submit" className="btn btn-primary">
