@@ -32,6 +32,9 @@ function SignForm() {
 
     if (formValid) {
       console.log("Form eklendi! ", formData);
+      alert(
+        "Congratulations! Your registration has been completed successfully."
+      );
     }
   };
 
@@ -68,7 +71,7 @@ function SignForm() {
 
   useEffect(() => {
     userSchema.isValid(formData).then((valid) => setFormValid(valid));
-  }, [formData]);
+  }, [formData, userSchema]);
 
   return (
     <div className="container fluid">
@@ -82,6 +85,7 @@ function SignForm() {
             Name
           </Form.Label>
           <Form.Control
+            id="name-input"
             name="name"
             type="text"
             value={formData.name}
@@ -99,6 +103,7 @@ function SignForm() {
             Email
           </Form.Label>
           <Form.Control
+            id="email-input"
             name="email"
             type="email"
             value={formData.email}
@@ -107,7 +112,7 @@ function SignForm() {
             className="form-control"
             isInvalid={!!formError.email}
           />
-          <Form.Control.Feedback type="invalid">
+          <Form.Control.Feedback id="email-validation" type="invalid">
             {formError.email}
           </Form.Control.Feedback>
         </Form.Group>
@@ -116,6 +121,7 @@ function SignForm() {
             Password
           </Form.Label>
           <Form.Control
+            id="password-input"
             name="password"
             type="password"
             value={formData.password}
@@ -124,12 +130,13 @@ function SignForm() {
             className="form-control"
             isInvalid={!!formError.password}
           />
-          <Form.Control.Feedback type="invalid">
+          <Form.Control.Feedback id="password-validation" type="invalid">
             {formError.password}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="row mb-3">
           <Form.Check
+            id="check-input"
             name="checkbox"
             type="checkbox"
             onChange={changeHandler}
@@ -138,7 +145,7 @@ function SignForm() {
           <Form.Label>I accept the terms of service.</Form.Label>
         </Form.Group>
 
-        <button type="submit" className="btn btn-primary">
+        <button id="sign" type="submit" className="btn btn-primary">
           Sign Up
         </button>
       </Form>
